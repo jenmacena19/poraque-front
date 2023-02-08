@@ -1,22 +1,62 @@
 import { View, Text, ScrollView, StyleSheet, FlatList, SafeAreaView, Image, TextInput, TouchableOpacity } from 'react-native'
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect, useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { LogoUser, IconFilter, IconBrilho, IconUser, IconMala, Local1 } from '../assets';
 import MenuContainer from '../components/MenuContainer';
 import ItemCardContainer from '../components/ItemCardContainer';
+import { API } from '../api/api.js';
 
 const HomeScreen = () => {
 
     const navigation = useNavigation();
 
     const data1 = ['1', '2', '3', '4', '5', '6'];
+    const [touristPoint, setTouristPoint] = useState([])
+    const [hotels, setHotel] = useState([])
+    const [festival, setFestival] = useState([])
+    const [fair, setFair] = useState([])
 
     const [type, setType] = useState("sujestão")
+    
 
     useLayoutEffect(() => {
         navigation.setOptions({
         headerShown: false,
         })
+    }, [])
+
+    useEffect(()=>{
+        async function getEvents(){
+            try{
+                const api = new API();
+                const events = await api.getAllEvents()
+                const aTourists = await events.filter((event)=>{
+                   return  event.event_type === "Turistico";
+                });
+
+                const aHotel = await events.filter((event)=>{
+                    return  event.event_type === "Hotel";
+                });
+                 
+                const aFestival = await events.filter((event)=>{
+                    return  event.event_type === "Festival";
+                 });
+
+                const aFair = await events.filter((event)=>{
+                    return  event.event_type === "Feira";
+                });
+                setTouristPoint(await aTourists);
+                setHotel(await aHotel);
+                setFestival(await aFestival);
+                setFair(await aFair);
+
+            }catch(err){
+                console.log(err);
+            }
+            
+        }
+
+        getEvents();
     }, [])
 
   return (
@@ -83,15 +123,15 @@ const HomeScreen = () => {
                 >
                     <FlatList
                     className="-mx-4"
-                        data={data1}
-                        keyExtractor={(item) => String(item)}
+                        data={touristPoint}
+                        keyExtractor={(item) => String(item._id)}
                         showsHorizontalScrollIndicator={false}
                         horizontal
                         renderItem={({item}) => {
                             return <View 
                                     style={styles.shadow}>
                                     <ItemCardContainer
-                                    key={item} imageSrc={Local1} title="Anavilhanas Jungle Lodge" stars="4,5" location="Av. Pres. Gentúlio Vargas Novo Airão"/>
+                                    key={item._id} imageSrc={Local1} title={item["event_title"]} stars={item["event_stars"]} location="Av. Pres. Gentúlio Vargas Novo Airão"/>
                                 </View>
                         }}
                     >
@@ -116,15 +156,15 @@ const HomeScreen = () => {
                 >
                     <FlatList
                     className="-mx-4"
-                        data={data1}
-                        keyExtractor={(item) => String(item)}
+                        data={hotels}
+                        keyExtractor={(item) => String(item._id)}
                         showsHorizontalScrollIndicator={false}
                         horizontal
                         renderItem={({item}) => {
                             return <View 
                                     style={styles.shadow}>
                                     <ItemCardContainer
-                                    key={item} imageSrc={Local1} title="Anavilhanas Jungle Lodge" stars="4,5" location="Av. Pres. Gentúlio Vargas Novo Airão"/>
+                                    key={item._id} imageSrc={Local1} title={item["event_title"]} stars={item["event_stars"]} location="Av. Pres. Gentúlio Vargas Novo Airão"/>
                                 </View>
                         }}
                     >
@@ -149,15 +189,15 @@ const HomeScreen = () => {
                 >
                     <FlatList
                     className="-mx-4"
-                        data={data1}
-                        keyExtractor={(item) => String(item)}
+                        data={festival}
+                        keyExtractor={(item) => String(item._id)}
                         showsHorizontalScrollIndicator={false}
                         horizontal
                         renderItem={({item}) => {
                             return <View 
                                     style={styles.shadow}>
                                     <ItemCardContainer
-                                    key={item} imageSrc={Local1} title="Anavilhanas Jungle Lodge" stars="4,5" location="Av. Pres. Gentúlio Vargas Novo Airão"/>
+                                    key={item._id} imageSrc={Local1} title={item["event_title"]} stars={item["event_stars"]} location="Av. Pres. Gentúlio Vargas Novo Airão"/>
                                 </View>
                         }}
                     >
@@ -182,15 +222,15 @@ const HomeScreen = () => {
                 >
                     <FlatList
                     className="-mx-4"
-                        data={data1}
-                        keyExtractor={(item) => String(item)}
+                        data={fair}
+                        keyExtractor={(item) => String(item._id)}
                         showsHorizontalScrollIndicator={false}
                         horizontal
                         renderItem={({item}) => {
                             return <View 
                                     style={styles.shadow}>
                                     <ItemCardContainer
-                                    key={item} imageSrc={Local1} title="Anavilhanas Jungle Lodge" stars="4,5" location="Av. Pres. Gentúlio Vargas Novo Airão"/>
+                                    key={item._id} imageSrc={Local1} title={item["event_title"]} stars={item["event_stars"]} location="Av. Pres. Gentúlio Vargas Novo Airão"/>
                                 </View>
                         }}
                     >
