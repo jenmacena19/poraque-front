@@ -98,7 +98,7 @@ const HomeScreen = ({route}) => {
                             return <View 
                                     style={styles.shadow}>
                                     <ItemCardContainer
-                                    key={item._id} imageSrc={Local1} title={item["event_title"]} stars={item["event_stars"]} location="Av. Pres. Gentúlio Vargas Novo Airão"/>
+                                    key={item._id} imageSrc={Local1} title={item.event_title} stars={item.event_stars} location={item.event_local}/>
                                 </View>
                         }}
                     >
@@ -133,7 +133,7 @@ const HomeScreen = ({route}) => {
                             return <View 
                                     style={styles.shadow}>
                                     <ItemCardContainer
-                                    key={item._id} imageSrc={Local1} title={item["event_title"]} stars={item["event_stars"]} location="Av. Pres. Gentúlio Vargas Novo Airão"/>
+                                    key={item._id} imageSrc={Local1} title={item.event_title} stars={item.event_stars} location={item.event_local}/>
                                 </View>
                         }}
                     >
@@ -168,7 +168,7 @@ const HomeScreen = ({route}) => {
                             return <View 
                                     style={styles.shadow}>
                                     <ItemCardContainer
-                                    key={item._id} imageSrc={Local1} title={item["event_title"]} stars={item["event_stars"]} location="Av. Pres. Gentúlio Vargas Novo Airão"/>
+                                    key={item._id} imageSrc={Local1} title={item.event_title} stars={item.event_stars} location={item.event_local}/>
                                 </View>
                         }}
                     >
@@ -203,7 +203,7 @@ const HomeScreen = ({route}) => {
                             return <View 
                                     style={styles.shadow}>
                                     <ItemCardContainer
-                                    key={item._id} imageSrc={Local1} title={item["event_title"]} stars={item["event_stars"]} location="Av. Pres. Gentúlio Vargas Novo Airão"/>
+                                    key={item._id} imageSrc={Local1} title={item.event_title} stars={item.event_stars} location={item.event_local}/>
                                 </View>
                         }}
                     >
