@@ -4,19 +4,12 @@ import { useNavigation } from '@react-navigation/native'
 import { LogoUser, IconFilter, IconBrilho, IconUser, IconMala, Local1 } from '../assets';
 import MenuContainer from '../components/MenuContainer';
 import ItemCardContainer from '../components/ItemCardContainer';
-import { API } from '../api/api.js';
 
-const HomeScreen = () => {
+const HomeScreen = ({route}) => {
 
     const navigation = useNavigation();
-
-    const data1 = ['1', '2', '3', '4', '5', '6'];
-    const [touristPoint, setTouristPoint] = useState([])
-    const [hotels, setHotel] = useState([])
-    const [festival, setFestival] = useState([])
-    const [fair, setFair] = useState([])
-
-    const [type, setType] = useState("sujestão")
+    const [data, setData] = useState([]);
+    const [type, setType] = useState("sujestão");
     
 
     useLayoutEffect(() => {
@@ -26,37 +19,9 @@ const HomeScreen = () => {
     }, [])
 
     useEffect(()=>{
-        async function getEvents(){
-            try{
-                const api = new API();
-                const events = await api.getAllEvents()
-                const aTourists = await events.filter((event)=>{
-                   return  event.event_type === "Turistico";
-                });
-
-                const aHotel = await events.filter((event)=>{
-                    return  event.event_type === "Hotel";
-                });
-                 
-                const aFestival = await events.filter((event)=>{
-                    return  event.event_type === "Festival";
-                 });
-
-                const aFair = await events.filter((event)=>{
-                    return  event.event_type === "Feira";
-                });
-                setTouristPoint(await aTourists);
-                setHotel(await aHotel);
-                setFestival(await aFestival);
-                setFair(await aFair);
-
-            }catch(err){
-                console.log(err);
-            }
-            
+        if(route.params){
+            setData(route.params.eventsHome)
         }
-
-        getEvents();
     }, [])
 
   return (
@@ -123,7 +88,9 @@ const HomeScreen = () => {
                 >
                     <FlatList
                     className="-mx-4"
-                        data={touristPoint}
+                        data={data.filter((event)=>{
+                           return event.event_type === "Turistico"
+                        })}
                         keyExtractor={(item) => String(item._id)}
                         showsHorizontalScrollIndicator={false}
                         horizontal
@@ -156,7 +123,9 @@ const HomeScreen = () => {
                 >
                     <FlatList
                     className="-mx-4"
-                        data={hotels}
+                        data={data.filter((event)=>{
+                            return  event.event_type === "Hotel";
+                        })}
                         keyExtractor={(item) => String(item._id)}
                         showsHorizontalScrollIndicator={false}
                         horizontal
@@ -189,7 +158,9 @@ const HomeScreen = () => {
                 >
                     <FlatList
                     className="-mx-4"
-                        data={festival}
+                        data={data.filter((event)=>{
+                            return  event.event_type === "Festival";
+                        })}
                         keyExtractor={(item) => String(item._id)}
                         showsHorizontalScrollIndicator={false}
                         horizontal
@@ -222,7 +193,9 @@ const HomeScreen = () => {
                 >
                     <FlatList
                     className="-mx-4"
-                        data={fair}
+                        data={data.filter((event)=>{
+                            return  event.event_type === "Feira";
+                        })}
                         keyExtractor={(item) => String(item._id)}
                         showsHorizontalScrollIndicator={false}
                         horizontal
