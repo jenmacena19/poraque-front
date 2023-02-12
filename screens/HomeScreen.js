@@ -1,9 +1,10 @@
-import { View, Text, ScrollView, StyleSheet, FlatList, SafeAreaView, Image, TextInput, TouchableOpacity } from 'react-native'
-import React, { useLayoutEffect, useState } from 'react'
+import { View, ActivityIndicator, Text, ScrollView, StyleSheet, FlatList, SafeAreaView, Image, TextInput, TouchableOpacity } from 'react-native'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { LogoUser, IconFilter, IconBrilho, IconUser, IconMala, Local1 } from '../assets';
 import MenuContainer from '../components/MenuContainer';
 import ItemCardContainer from '../components/ItemCardContainer';
+//import { getData } from '../api';
 
 const HomeScreen = () => {
 
@@ -11,14 +12,22 @@ const HomeScreen = () => {
 
     const data1 = ['1', '2', '3', '4', '5', '6'];
 
-    const [type, setType] = useState("sujestão")
+    const [type, setType] = useState("sujestão");
+    const [isLoading, setIsLoading] = useState(false );
 
     useLayoutEffect(() => {
         navigation.setOptions({
         headerShown: false,
-        })
-    }, [])
-
+        });
+    }, []);
+/*
+    useEffect(() => {
+        setIsLoading(true);
+        getData().then(() => {
+            setIsLoading(false);
+        });
+    }, []);
+*/
   return (
     <SafeAreaView className=" bg-white flex-1">
         <View className=" flex-row items-center justify-center mt-10 mb-2">
@@ -41,6 +50,11 @@ const HomeScreen = () => {
         </View>
 
         {/* Menu container */}
+        {isLoading ? 
+        <View className="flex-1 items-center justify-center">
+            <ActivityIndicator size="large" color="#406d87" />
+        </View>
+        : 
         <ScrollView>
             <View className="flex-row items-center justify-around mt-4">
                 <MenuContainer
@@ -91,7 +105,7 @@ const HomeScreen = () => {
                             return <View 
                                     style={styles.shadow}>
                                     <ItemCardContainer
-                                    key={item} imageSrc={Local1} title="Anavilhanas Jungle Lodge" stars="4,5" location="Av. Pres. Gentúlio Vargas Novo Airão"/>
+                                    key={item} id={item} imageSrc={Local1} title="Anavilhanas Jungle Lodge" stars="4,5" location="Av. Pres. Gentúlio Vargas Novo Airão"/>
                                 </View>
                         }}
                     >
@@ -198,6 +212,8 @@ const HomeScreen = () => {
                 </View>
             </View>
         </ScrollView>
+        }
+        
     </SafeAreaView>
   )
 }
