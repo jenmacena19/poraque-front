@@ -1,5 +1,6 @@
+import { API } from '../api/api';
 import { View, Text, SafeAreaView, Image, TouchableOpacity } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { LogoImage, TuristsImage, MapImage, IconBrilho, IconUser, IconMala } from '../assets';
 import * as Animatable from 'react-native-animatable';
@@ -7,6 +8,7 @@ import * as Animatable from 'react-native-animatable';
 const SplashScreen = () => {
 
   const navigation = useNavigation();
+  const [data, setData] = useState(undefined);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -14,6 +16,28 @@ const SplashScreen = () => {
     })
   }, [])
 
+  useEffect(()=>{
+    async function getEvents(){
+        try{
+            const api = new API();
+            await api.getAllEvents().then((value)=>{
+              setData(value);
+            });
+            
+        }catch(err){
+            //dev
+            console.log(err);
+        }   
+    }
+    getEvents();
+  }, [])
+
+  useEffect(()=>{
+    data == undefined ? null : navigation.navigate("TabNavigation",{
+      eventsHome: data,
+    })
+  }, [data])
+  
   return (
     <SafeAreaView className="bg-white flex-1 relative">
       {/* Images */}
