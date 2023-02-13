@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './HomeScreen';
+import Agencies from './Agencies';
 
 const TabNavScreens = () => {
 
@@ -39,14 +40,6 @@ const TabNavScreens = () => {
     );
     }
 
-    function Agencias() {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Agências</Text>
-        </View>
-    );
-    }
-
   const Tab = createBottomTabNavigator();
 
   return (
@@ -78,7 +71,7 @@ const TabNavScreens = () => {
             <Tab.Screen name="Noticias" component={Noticias} />
             <Tab.Screen name="Criar" component={Criar} />
             <Tab.Screen name="Salvos" component={Salvos} />
-            <Tab.Screen name="Agencias" component={Agencias} />
+            <Tab.Screen name="Agencias" component={Agencies} />
         </Tab.Navigator>
     </NavigationContainer>
   );
