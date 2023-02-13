@@ -1,8 +1,10 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { IconStar, IconGps } from '../assets';
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 
-const ItemCardContainer = ({imageSrc, title, stars, location}) => {
+const ItemCardContainer = ({id, imageSrc, title, stars, location}) => {
+    const navigation = useNavigation();
   return (
     <TouchableOpacity
         className="rounded-md space-y-2 px-3 py-3 mx-1"

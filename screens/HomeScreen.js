@@ -1,16 +1,17 @@
-import { View, Text, ScrollView, StyleSheet, FlatList, SafeAreaView, Image, TextInput, TouchableOpacity } from 'react-native'
-import React, { useLayoutEffect, useState, useEffect } from 'react'
+import { View, ActivityIndicator, Text, ScrollView, StyleSheet, FlatList, SafeAreaView, Image, TextInput, TouchableOpacity } from 'react-native'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { LogoUser, IconFilter, IconBrilho, IconUser, IconMala, Local1 } from '../assets';
 import MenuContainer from '../components/MenuContainer';
 import ItemCardContainer from '../components/ItemCardContainer';
+//import { getData } from '../api';
 
 const HomeScreen = ({route}) => {
 
     const navigation = useNavigation();
     const [data, setData] = useState([]);
     const [type, setType] = useState("sujestão");
-    
+    const [isLoading, setIsLoading] = useState(false );
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -24,6 +25,14 @@ const HomeScreen = ({route}) => {
         }
     }, [])
 
+/*
+    useEffect(() => {
+        setIsLoading(true);
+        getData().then(() => {
+            setIsLoading(false);
+        });
+    }, []);
+*/
   return (
     <SafeAreaView className=" bg-white flex-1">
         <View className=" flex-row items-center justify-center mt-10 mb-2">
@@ -46,6 +55,11 @@ const HomeScreen = ({route}) => {
         </View>
 
         {/* Menu container */}
+        {isLoading ? 
+        <View className="flex-1 items-center justify-center">
+            <ActivityIndicator size="large" color="#406d87" />
+        </View>
+        : 
         <ScrollView>
             <View className="flex-row items-center justify-around mt-4">
                 <MenuContainer
@@ -211,6 +225,8 @@ const HomeScreen = ({route}) => {
                 </View>
             </View>
         </ScrollView>
+        }
+        
     </SafeAreaView>
   )
 }
