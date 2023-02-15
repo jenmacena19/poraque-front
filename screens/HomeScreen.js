@@ -4,35 +4,31 @@ import { useNavigation } from '@react-navigation/native'
 import { LogoUser, IconFilter, IconBrilho, IconUser, IconMala, Local1 } from '../assets';
 import MenuContainer from '../components/MenuContainer';
 import ItemCardContainer from '../components/ItemCardContainer';
-//import { getData } from '../api';
+import {useBackHandler} from '@react-native-community/hooks';
 
 const HomeScreen = ({route}) => {
 
     const navigation = useNavigation();
     const [data, setData] = useState([]);
     const [type, setType] = useState("sujestão");
-    const [isLoading, setIsLoading] = useState(false );
+    const [isLoading, setIsLoading] = useState(false);
 
     useLayoutEffect(() => {
         navigation.setOptions({
         headerShown: false,
         })
-    }, [])
+    }, []);
 
     useEffect(()=>{
         if(route.params){
-            setData(route.params.eventsHome)
+            setData(route.params.eventsHome);
         }
-    }, [])
-
-/*
-    useEffect(() => {
-        setIsLoading(true);
-        getData().then(() => {
-            setIsLoading(false);
-        });
     }, []);
-*/
+
+    useBackHandler(() => {
+        return true;
+    });
+
   return (
     <SafeAreaView className=" bg-white flex-1">
         <View className=" flex-row items-center justify-center mt-10 mb-2">
@@ -94,7 +90,7 @@ const HomeScreen = ({route}) => {
                     <TouchableOpacity>
                         <Text
                         className="text-[#277AFF]"
-                        >{'Ver main >'}</Text>
+                        >{'Ver mais >'}</Text>
                     </TouchableOpacity>
                 </View>
                 <View
@@ -129,7 +125,7 @@ const HomeScreen = ({route}) => {
                     <TouchableOpacity>
                         <Text
                         className="text-[#277AFF]"
-                        >{'Ver main >'}</Text>
+                        >{'Ver mais >'}</Text>
                     </TouchableOpacity>
                 </View>
                 <View
@@ -164,7 +160,7 @@ const HomeScreen = ({route}) => {
                     <TouchableOpacity>
                         <Text
                         className="text-[#277AFF]"
-                        >{'Ver main >'}</Text>
+                        >{'Ver mais >'}</Text>
                     </TouchableOpacity>
                 </View>
                 <View
@@ -199,7 +195,7 @@ const HomeScreen = ({route}) => {
                     <TouchableOpacity>
                         <Text
                         className="text-[#277AFF]"
-                        >{'Ver main >'}</Text>
+                        >{'Ver mais >'}</Text>
                     </TouchableOpacity>
                 </View>
                 <View
