@@ -50,6 +50,18 @@ const Agencies = () => {
             <AgenciesCardContainer/>
             <AgenciesCardContainer/>
             <AgenciesCardContainer/>
+            <AgenciesCardContainer/>
+            <AgenciesCardContainer/>
+            <AgenciesCardContainer/>
+            <AgenciesCardContainer/>
+            <AgenciesCardContainer/>
+            <AgenciesCardContainer/>
+            <AgenciesCardContainer/>
+            <AgenciesCardContainer/>
+            <AgenciesCardContainer/>
+            <AgenciesCardContainer/>
+            <AgenciesCardContainer/>
+            <AgenciesCardContainer/>
 
         </ScrollView>
         }
