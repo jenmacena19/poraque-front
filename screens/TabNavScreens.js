@@ -1,13 +1,12 @@
 import { View, Text } from 'react-native'
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './HomeScreen';
 import Agencies from './Agencies';
 
-const TabNavScreens = () => {
-
+const TabNavScreens = ({route}) => {
     const navigation = useNavigation();
 
     useLayoutEffect(() => {
@@ -67,7 +66,7 @@ const TabNavScreens = () => {
                 tabBarInactiveTintColor: '#4E73A5',
             })}
         >
-            <Tab.Screen name="Home" component={HomeScreen} />
+            <Tab.Screen name="Home" component={HomeScreen} initialParams={route.params} />
             <Tab.Screen name="Noticias" component={Noticias} />
             <Tab.Screen name="Criar" component={Criar} />
             <Tab.Screen name="Salvos" component={Salvos} />

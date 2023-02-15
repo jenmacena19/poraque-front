@@ -6,20 +6,25 @@ import MenuContainer from '../components/MenuContainer';
 import ItemCardContainer from '../components/ItemCardContainer';
 //import { getData } from '../api';
 
-const HomeScreen = () => {
+const HomeScreen = ({route}) => {
 
     const navigation = useNavigation();
-
-    const data1 = ['1', '2', '3', '4', '5', '6'];
-
+    const [data, setData] = useState([]);
     const [type, setType] = useState("sujestão");
     const [isLoading, setIsLoading] = useState(false );
 
     useLayoutEffect(() => {
         navigation.setOptions({
         headerShown: false,
-        });
-    }, []);
+        })
+    }, [])
+
+    useEffect(()=>{
+        if(route.params){
+            setData(route.params.eventsHome)
+        }
+    }, [])
+
 /*
     useEffect(() => {
         setIsLoading(true);
@@ -97,15 +102,17 @@ const HomeScreen = () => {
                 >
                     <FlatList
                     className="-mx-4"
-                        data={data1}
-                        keyExtractor={(item) => String(item)}
+                        data={data.filter((event)=>{
+                           return event.event_type === "Turistico"
+                        })}
+                        keyExtractor={(item) => String(item._id)}
                         showsHorizontalScrollIndicator={false}
                         horizontal
                         renderItem={({item}) => {
                             return <View 
                                     style={styles.shadow}>
                                     <ItemCardContainer
-                                    key={item} id={item} imageSrc={Local1} title="Anavilhanas Jungle Lodge" stars="4,5" location="Av. Pres. Gentúlio Vargas Novo Airão"/>
+                                    key={item._id} imageSrc={Local1} title={item.event_title} stars={item.event_stars} location={item.event_local}/>
                                 </View>
                         }}
                     >
@@ -130,15 +137,17 @@ const HomeScreen = () => {
                 >
                     <FlatList
                     className="-mx-4"
-                        data={data1}
-                        keyExtractor={(item) => String(item)}
+                        data={data.filter((event)=>{
+                            return  event.event_type === "Hotel";
+                        })}
+                        keyExtractor={(item) => String(item._id)}
                         showsHorizontalScrollIndicator={false}
                         horizontal
                         renderItem={({item}) => {
                             return <View 
                                     style={styles.shadow}>
                                     <ItemCardContainer
-                                    key={item} imageSrc={Local1} title="Anavilhanas Jungle Lodge" stars="4,5" location="Av. Pres. Gentúlio Vargas Novo Airão"/>
+                                    key={item._id} imageSrc={Local1} title={item.event_title} stars={item.event_stars} location={item.event_local}/>
                                 </View>
                         }}
                     >
@@ -163,15 +172,17 @@ const HomeScreen = () => {
                 >
                     <FlatList
                     className="-mx-4"
-                        data={data1}
-                        keyExtractor={(item) => String(item)}
+                        data={data.filter((event)=>{
+                            return  event.event_type === "Festival";
+                        })}
+                        keyExtractor={(item) => String(item._id)}
                         showsHorizontalScrollIndicator={false}
                         horizontal
                         renderItem={({item}) => {
                             return <View 
                                     style={styles.shadow}>
                                     <ItemCardContainer
-                                    key={item} imageSrc={Local1} title="Anavilhanas Jungle Lodge" stars="4,5" location="Av. Pres. Gentúlio Vargas Novo Airão"/>
+                                    key={item._id} imageSrc={Local1} title={item.event_title} stars={item.event_stars} location={item.event_local}/>
                                 </View>
                         }}
                     >
@@ -196,15 +207,17 @@ const HomeScreen = () => {
                 >
                     <FlatList
                     className="-mx-4"
-                        data={data1}
-                        keyExtractor={(item) => String(item)}
+                        data={data.filter((event)=>{
+                            return  event.event_type === "Feira";
+                        })}
+                        keyExtractor={(item) => String(item._id)}
                         showsHorizontalScrollIndicator={false}
                         horizontal
                         renderItem={({item}) => {
                             return <View 
                                     style={styles.shadow}>
                                     <ItemCardContainer
-                                    key={item} imageSrc={Local1} title="Anavilhanas Jungle Lodge" stars="4,5" location="Av. Pres. Gentúlio Vargas Novo Airão"/>
+                                    key={item._id} imageSrc={Local1} title={item.event_title} stars={item.event_stars} location={item.event_local}/>
                                 </View>
                         }}
                     >
