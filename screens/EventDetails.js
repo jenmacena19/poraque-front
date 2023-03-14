@@ -71,8 +71,7 @@ const styles = StyleSheet.create({
       marginLeft: 20,
       marginRight: 20,
       textAlign: 'justify',
-      fontSize: 14,
-      //fontFamily: 'Inter_400Regular'
+      fontSize: 14
     },
     know: {
       marginLeft: 20,
